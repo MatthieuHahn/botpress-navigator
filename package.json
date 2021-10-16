@@ -1,0 +1,19 @@
+{
+  "name": "botpress-navigator",
+  "version": "1.0.0",
+  "description": "A botpress test file navigator",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd ./server && npm install && cd ../client && yarn"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatthieuHahn/botpress-navigator.git"
+  },
+  "author": "Matthieu Hahn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatthieuHahn/botpress-navigator/issues"
+  },
+  "homepage": "https://github.com/MatthieuHahn/botpress-navigator#readme"
+}

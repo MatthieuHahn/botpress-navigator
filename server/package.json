@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node build/index.js /Users/matthieuhahn/Documents /Users/matthieuhahn/Desktop",
+    "start": "node build/index.js",
     "start:dev": "npm run build && npm run start",
     "build": "npx rimraf ./build && npx tsc",
     "lint": "eslint src && prettier --check src"

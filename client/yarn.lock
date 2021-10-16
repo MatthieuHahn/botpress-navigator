@@ -929,21 +929,6 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bosket/core@^0.4.4":
-  version "0.4.4"
-  resolved "https://registry.npmjs.org/@bosket/core/-/core-0.4.4.tgz"
-  integrity sha512-KZlBZ0WahswknZ5MhqipbozN73Rc4LlhH8sT84H10iGPzShiv6xCypQRWt8Hqr2IqCtUcYtbSMc/TrGfL/rCiQ==
-
-"@bosket/tools@^0.4.4":
-  version "0.4.4"
-  resolved "https://registry.npmjs.org/@bosket/tools/-/tools-0.4.4.tgz"
-  integrity sha512-yvcRQf4zS0Umi+pWGSU2HzyjQUeYL26G6G3lHxexaG2msmqrRjpRExEm0FLCW5vv6RQ+woiJV9WV7t8xAqCVlg==
-
-"@bosket/vue@^0.4.4":
-  version "0.4.4"
-  resolved "https://registry.npmjs.org/@bosket/vue/-/vue-0.4.4.tgz"
-  integrity sha512-ObcHV9sUN0Z7NpPxQg2IsUMPJTvtBUQ+6IzDUbCudquqVqxMBEO15q7ZOe/RlQWO9Mv/Wu5vPDSv/n/G8BSMwA==
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz"
