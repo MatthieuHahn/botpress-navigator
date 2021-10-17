@@ -35,7 +35,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { CONNECT_TO_SOCKET, GET_DIRECTORIES, SOCKET_MODULE } from '@/store/actions/socket/socket.actions';
 
 export default {
-  name: 'Home',
+  name: 'FileExplorer',
   data: () => ({
     selected: [],
     tree: {},

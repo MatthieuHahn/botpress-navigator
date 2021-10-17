@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileExplorer when mounted and there are directories should render the treeview for each directory 1`] = `
+<v-expansion-panels-stub>
+  <v-expansion-panel-stub>
+    <v-expansion-panel-header-stub>
+      <h2>directory1</h2>
+    </v-expansion-panel-header-stub>
+    <v-expansion-panel-content-stub>
+      <v-treeview-stub items="[object Object],[object Object],[object Object]" activatable="" item-key="name" open-on-click=""></v-treeview-stub>
+    </v-expansion-panel-content-stub>
+  </v-expansion-panel-stub>
+  <v-expansion-panel-stub>
+    <v-expansion-panel-header-stub>
+      <h2>directory2</h2>
+    </v-expansion-panel-header-stub>
+    <v-expansion-panel-content-stub>
+      <v-treeview-stub items="[object Object],[object Object],[object Object]" activatable="" item-key="name" open-on-click=""></v-treeview-stub>
+    </v-expansion-panel-content-stub>
+  </v-expansion-panel-stub>
+</v-expansion-panels-stub>
+`;
+
+exports[`FileExplorer when mounted and there are no directories should render an empty page 1`] = ``;

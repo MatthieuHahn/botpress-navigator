@@ -10,15 +10,15 @@ import { RootState } from '@/store/store.model';
 import { ActionContext } from 'vuex';
 
 export interface SocketState {
-  directories: Map<string, DirectoryItem>,
+  directories,
   status: {
-    areLoading: true,
+    areLoading: boolean,
     error: null,
   }
 }
 
 const state: SocketState = {
-  directories: new Map<string, DirectoryItem>(),
+  directories: {},
   status: {
     areLoading: true,
     error: null,
@@ -44,7 +44,8 @@ const actions = {
       },
     );
   },
-  [GET_DIRECTORIES]() {
+  [GET_DIRECTORIES]({ commit }: ActionContext<SocketState, RootState>) {
+    commit(GET_DIRECTORIES);
     socket.emit('get-directories');
   },
 };
@@ -53,10 +54,11 @@ const mutations = {
   [GET_DIRECTORIES](socketState: SocketState) {
     socketState.status.areLoading = true;
   },
-  [GET_DIRECTORIES_SUCCESS](socketState: SocketState, directories: Map<string, DirectoryItem>) {
+  [GET_DIRECTORIES_SUCCESS](socketState: SocketState, directories) {
     socketState.directories = directories;
+    socketState.status.areLoading = false;
   },
-  [UPDATE_DIRECTORIES](socketState: SocketState, directories: Map<string, DirectoryItem>) {
+  [UPDATE_DIRECTORIES](socketState: SocketState, directories) {
     socketState.directories = directories;
   },
 };
@@ -66,7 +68,7 @@ const getters = {
   directories: (
     _,
     { socketState }: { socketState: SocketState },
-  ) => socketState?.directories,
+  ) => socketState?.directories || {},
 };
 
 export const SocketModule = {
