@@ -3,7 +3,10 @@ import {
   DirectoryItem,
   DirectoryItemType
 } from "../../models/directory-item.model";
-import { directoriesByName, isInitializing } from "../directoryBuilder";
+import {
+  watchedDirectories,
+  isInitializing
+} from "../directory-builder/directoryBuilder";
 import { sortDirectoryItemsByTypeAndName } from "./data.helper";
 
 export const addDirectoryItem = (
@@ -11,24 +14,31 @@ export const addDirectoryItem = (
   io: Server,
   type: DirectoryItemType
 ) => {
-  Object.keys(directoriesByName).forEach(key => {
-    if (path.includes(key) && path !== key) {
-      const splittedPath = path.replace(`${key}/`, "").split("/");
-      addDirectoryItemToDirectory(splittedPath, directoriesByName[key], type);
+  watchedDirectories.forEach(directory => {
+    if (path.includes(directory.name) && path !== directory.name) {
+      const splittedPath = path.replace(`${directory.name}/`, "").split("/");
+      addDirectoryItemToDirectory(splittedPath, directory, type);
     }
   });
   if (!isInitializing) {
-    io.emit("update-directories", directoriesByName);
+    io.emit("update-directories", watchedDirectories);
   }
 };
 
 export const removeDirectoryItem = (path: string, io: Server) => {
-  Object.keys(directoriesByName).forEach(key => {
-    let currentDirectoryItem: DirectoryItem | undefined =
-      directoriesByName[key];
-    if (path.includes(key)) {
-      let splittedPath = path.replace(`${key}/`, "").split("/");
-      const fileName = splittedPath.pop();
+  watchedDirectories.forEach(directory => {
+    if (path.includes(directory.name)) {
+      // initialize current directory item
+      let currentDirectoryItem: DirectoryItem | undefined = { ...directory };
+
+      // split the path to iterate through the directories
+      let splittedPath = path.replace(`${directory.name}/`, "").split("/");
+
+      // Get the last directory item and remove it from the array
+      const lastDirectoryItemName = splittedPath.pop();
+
+      // iterate through the array to find the directory item
+      // containing the item we want to delete
       splittedPath.forEach((pathItem: string) => {
         if (currentDirectoryItem) {
           currentDirectoryItem = currentDirectoryItem.children?.find(
@@ -37,22 +47,29 @@ export const removeDirectoryItem = (path: string, io: Server) => {
         }
       });
 
+      // As a security, check if this item has children
       if (currentDirectoryItem?.children) {
+        // Find the item index corresponding to the item we want to remove and remove it
         const itemIndex = currentDirectoryItem?.children?.findIndex(
-          item => item.name === fileName
+          item => item.name === lastDirectoryItemName
         );
         currentDirectoryItem?.children?.splice(itemIndex, 1);
       }
     }
   });
-  io.emit("update-directories", directoriesByName);
+
+  // Emit the update on the socket
+  io.emit("update-directories", watchedDirectories);
 };
 
+// addDirectoryItemToDirectory is a function that will call itself
+// recursively until the item is added at the right place
 export const addDirectoryItemToDirectory = (
   splittedPath: string[],
   directory: DirectoryItem,
   type: DirectoryItemType
 ): void => {
+  // Init the directoryItem we will be adding
   const splittedPathItem = splittedPath.shift();
   const isLastPathItem = splittedPath.length === 0;
   const name = splittedPathItem || "error.error";
@@ -64,15 +81,20 @@ export const addDirectoryItemToDirectory = (
     children: itemType !== DirectoryItemType.FILE ? [] : undefined
   };
 
+  // Check if the directory item already exists
   const currentDirectoryItem = directory.children?.find(
     item => item.name === directoryItem.name
   );
 
+  // If it doesn't exist and it has children (security to avoid errors),
+  // Add the item and sort the children array
   if (!currentDirectoryItem && directory.children) {
     directory.children?.push(directoryItem);
     directory.children = sortDirectoryItemsByTypeAndName(directory.children);
   }
 
+  // If the current directory item is not the last item from the path,
+  // recursively call the function
   if (!isLastPathItem) {
     return addDirectoryItemToDirectory(
       splittedPath,

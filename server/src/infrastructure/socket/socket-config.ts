@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { directoriesByName } from "../../core/directoryBuilder";
+import { watchedDirectories } from "../../core/directory-builder/directoryBuilder";
 import { DirectoryItem } from "../../models/directory-item.model";
 import { GET_DIRECTORIES } from "./socket-events";
 
@@ -13,7 +13,7 @@ type socketDirectoryByName = {
 };
 
 const onGetDirectories = (socket: Socket) => {
-  socket.emit("get-directories-success", directoriesByName);
+  socket.emit("get-directories-success", watchedDirectories);
 };
 
 const socketServer = (io: Server): void => {
