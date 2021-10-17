@@ -11,5 +11,6 @@
     "resolveJsonModule": true,
     "jsx": "react"
   },
-  "exclude": ["./*.js"]
+  "exclude": ["./*.js"],
+  "include": ["src"]
 }
