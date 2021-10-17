@@ -43,6 +43,6 @@ Once the server has be started with directories as args in the command line, it:
 
 ### Front-End
 
-1. Once the app is started, the Home component dispatches the Vuex store connect action witch connects the Front-End to the socket.
+1. Once the app is started, the FileExplorer view dispatches the Vuex store connect action witch connects the Front-End to the socket.
 2. The home then dispatches the GET_DIRECTORIES actions that calls gets the directories through the socket the first time around.
 3. The Front-End socket listens to the update directories event, which uses the vuex store to update the directories getter via the mutations.

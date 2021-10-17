@@ -11,7 +11,7 @@ describe('UserModule', () => {
   let state;
 
   const defaultState: SocketState = {
-    directories: {},
+    directories: [],
     status: {
       error: null,
       areLoading: false,
@@ -81,7 +81,7 @@ describe('UserModule', () => {
                 },
               ),
             )
-              .toEqual({});
+              .toEqual([]);
           });
         });
 
@@ -95,7 +95,7 @@ describe('UserModule', () => {
                 },
               ),
             )
-              .toEqual({});
+              .toEqual([]);
           });
         });
 

@@ -1,7 +1,7 @@
 <template>
-  <v-expansion-panels v-if="directoryList.length > 0">
+  <v-expansion-panels v-if="directories.length > 0">
     <v-expansion-panel
-      v-for="directory in directoryList"
+      v-for="directory in directories"
       :key="directory.name"
     >
       <v-expansion-panel-header>
@@ -54,9 +54,6 @@ export default {
   }),
   computed: {
     ...mapGetters(SOCKET_MODULE, ['directories']),
-    directoryList() {
-      return Object.values(this.directories);
-    }
   },
   methods: {
     ...mapActions(SOCKET_MODULE, [CONNECT_TO_SOCKET, GET_DIRECTORIES]),
