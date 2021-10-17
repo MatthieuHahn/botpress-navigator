@@ -4,7 +4,7 @@ import {
   DirectoryItem,
   DirectoryItemType
 } from "../../models/directory-item.model";
-import { addDirectoryItem, removeDirectoryItem } from "../helpers/file.helper";
+import { addDirectoryItem, removeDirectoryItem } from "../helpers/builder/builder.helper";
 
 let watcher: chokidar.FSWatcher;
 export let isInitializing: boolean;

@@ -2,18 +2,18 @@ import { Server } from "socket.io";
 import {
   DirectoryItem,
   DirectoryItemType
-} from "../../models/directory-item.model";
+} from "../../../models/directory-item.model";
 import {
+  isInitializing,
   watchedDirectories,
-  isInitializing
-} from "../directory-builder/directoryBuilder";
-import { sortDirectoryItemsByTypeAndName } from "./data.helper";
+} from "../../directory-builder/directory-builder";
+import { sortDirectoryItemsByTypeAndName } from "../data/data.helper";
 
 export const addDirectoryItem = (
   path: string,
   io: Server,
   type: DirectoryItemType
-) => {
+): void => {
   watchedDirectories.forEach(directory => {
     if (path.includes(directory.name) && path !== directory.name) {
       const splittedPath = path.replace(`${directory.name}/`, "").split("/");
@@ -25,21 +25,21 @@ export const addDirectoryItem = (
   }
 };
 
-export const removeDirectoryItem = (path: string, io: Server) => {
+export const removeDirectoryItem = (path: string, io: Server): void => {
   watchedDirectories.forEach(directory => {
     if (path.includes(directory.name)) {
       // initialize current directory item
       let currentDirectoryItem: DirectoryItem | undefined = { ...directory };
 
       // split the path to iterate through the directories
-      let splittedPath = path.replace(`${directory.name}/`, "").split("/");
+      const splitPath = path.replace(`${directory.name}/`, "").split("/");
 
       // Get the last directory item and remove it from the array
-      const lastDirectoryItemName = splittedPath.pop();
+      const lastDirectoryItemName = splitPath.pop();
 
       // iterate through the array to find the directory item
       // containing the item we want to delete
-      splittedPath.forEach((pathItem: string) => {
+      splitPath.forEach((pathItem: string) => {
         if (currentDirectoryItem) {
           currentDirectoryItem = currentDirectoryItem.children?.find(
             (child: DirectoryItem) => child.name === pathItem
@@ -76,7 +76,7 @@ export const addDirectoryItemToDirectory = (
   const itemType = isLastPathItem ? type : DirectoryItemType.DIRECTORY;
   const directoryItem: DirectoryItem = {
     name,
-    type,
+    type: itemType,
     file: itemType === DirectoryItemType.FILE ? name.split(".")[1] : undefined,
     children: itemType !== DirectoryItemType.FILE ? [] : undefined
   };

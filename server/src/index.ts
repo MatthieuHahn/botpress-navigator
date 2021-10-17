@@ -4,7 +4,7 @@ import serverConfigProvider from "./infrastructure/config/server-config-provider
 
 import configureSocketServer from "./infrastructure/socket/socket-config";
 
-import { initializeDirectoryBuilder } from "./core/directory-builder/directoryBuilder";
+import { initializeDirectoryBuilder } from "./core/directory-builder/directory-builder";
 import { Server } from "socket.io";
 
 const { port: serverPort } = serverConfigProvider();

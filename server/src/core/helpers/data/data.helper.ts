@@ -1,4 +1,4 @@
-import { DirectoryItem } from "../../models/directory-item.model";
+import { DirectoryItem } from "../../../models/directory-item.model";
 
 export const sortDirectoryItemsByTypeAndName = (array: DirectoryItem[]) => {
   return array.sort(function (a, b) {
